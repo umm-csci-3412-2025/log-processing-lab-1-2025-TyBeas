@@ -13,4 +13,4 @@ bin/create_username_dist.sh "$SCRATCH" #run bash here
 bin/create_hours_dist.sh "$SCRATCH"
 bin/create_country_dist.sh "$SCRATCH"
 bin/assemble_report.sh "$SCRATCH"
-mv "$SCRATCH/failed_login_summary.html" #destination
+mv "$SCRATCH/failed_login_summary.html" . #destination
