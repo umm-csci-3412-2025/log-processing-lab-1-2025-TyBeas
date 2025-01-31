@@ -1,4 +1,4 @@
-#! /usr/bin.env bash
+#! /usr/bin/env bash
 
 cd "$1" || exit
 touch failed_login_data.txt
