@@ -6,7 +6,6 @@
 	google.load('visualization', '1', {'packages':['corechart', 'geochart']});
 
 	<!-- ++++++++++++ END OF OVERALL HEADER +++++++++++++++++++++++++++++++ -->
-	<!-- ++++++++++++ START OF COUNTRY HEADER +++++++++++++++++++++++++++++++ -->
 	
 	google.setOnLoadCallback(drawCountryDistribution);
 
@@ -15,7 +14,6 @@
 		data.addColumn('string', 'Country');
 		data.addColumn('number', 'Number of failed logins');
 
-	<!-- ++++++++++++ END OF COUNTRY HEADER +++++++++++++++++++++++++++++++ -->
 data.addRow(['BR', 4]);
 data.addRow(['CN', 595]);
 data.addRow(['DE', 13]);
@@ -26,14 +24,11 @@ data.addRow(['RO', 4]);
 data.addRow(['RU', 12]);
 data.addRow(['TW', 4]);
 data.addRow(['US', 29]);
-	<!-- ++++++++++++ START OF COUNTRY FOOTER +++++++++++++++++++++++++++++++ -->
+
 
 		var chart = new google.visualization.GeoChart(document.getElementById('country_dist_div'));
 		chart.draw(data, {width: 800, height: 500, title: 'Failed logins by country'});
 	}
-
-	<!-- ++++++++++++ END OF COUNTRY FOOTER +++++++++++++++++++++++++++++++ -->
-	<!-- ++++++++++++ START OF HOURS HEADER +++++++++++++++++++++++++++++++ -->
 	
 	google.setOnLoadCallback(drawHoursDistribution);
 
@@ -42,7 +37,6 @@ data.addRow(['US', 29]);
 		data.addColumn('string', 'Hour of the day');
 		data.addColumn('number', 'Number of failed logins');
 
-	<!-- ++++++++++++ END OF HOURS HEADER +++++++++++++++++++++++++++++++ -->
 data.addRow(['00', 8]);
 data.addRow(['01', 20]);
 data.addRow(['02', 4]);
@@ -60,14 +54,10 @@ data.addRow(['18', 5]);
 data.addRow(['19', 4]);
 data.addRow(['20', 9]);
 data.addRow(['23', 8]);
-	<!-- ++++++++++++ START OF HOURS FOOTER +++++++++++++++++++++++++++++++ -->
 
 		var chart = new google.visualization.ColumnChart(document.getElementById('hours_dist_div'));
 		chart.draw(data, {width: 800, height: 550, title: 'Failed logins by hour of the day'});
 	}
-
-	<!-- ++++++++++++ END OF HOURS FOOTER +++++++++++++++++++++++++++++++ -->
-	<!-- ++++++++++++ START OF USERNAME HEADER +++++++++++++++++++++++++++++++ -->
 	
 	google.setOnLoadCallback(drawUsernameDistribution);
 
@@ -76,7 +66,6 @@ data.addRow(['23', 8]);
 		data.addColumn('string', 'Username');
 		data.addColumn('number', 'Number of failed logins');
 
-	<!-- ++++++++++++ END OF USERNAME HEADER +++++++++++++++++++++++++++++++ -->
 data.addRow(['a', 2]);
 data.addRow(['aaron', 2]);
 data.addRow(['admin', 18]);
@@ -238,14 +227,10 @@ data.addRow(['wrestling', 2]);
 data.addRow(['xbox', 2]);
 data.addRow(['xxx', 6]);
 data.addRow(['zimbra', 2]);
-	<!-- ++++++++++++ START OF USERNAME FOOTER +++++++++++++++++++++++++++++++ -->
 
 		var chart = new google.visualization.PieChart(document.getElementById('username_dist_div'));
 		chart.draw(data, {width: 800, height: 550, title: 'Failed logins by username'});
 	}
-
-	<!-- ++++++++++++ END OF USERNAME FOOTER +++++++++++++++++++++++++++++++ -->
-	<!-- ++++++++++++ START OF OVERALL FOOTER +++++++++++++++++++++++++++++++ -->
 
 	</script>
 </head>
