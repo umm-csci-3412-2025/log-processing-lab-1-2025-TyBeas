@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
-SCRATCH=$(mktemp -d)
-home=$(pwd)
-cd "$1" || exit
-cat "$home/html_components/hours_dist_header.html" > hours_dist.html
-for f in */; do
-    [[ -d $f ]] || continue
-    awk '{print $2}' "$f/failed_login_data.txt" >> "$SCRATCH/listOfHours.txt"
-done
-sort "$SCRATCH/listOfHours.txt" | uniq -c | sort -k2,2n | awk '{printf "data.addRow([\x27%02d\x27, %d]);\n", $2, $1}' >> hours_dist.html
 
-cat "$home/html_components/hours_dist_footer.html" >> hours_dist.html
-rm -r "$SCRATCH"
+cd "$1" || exit
+touch hours_dist.html
+find . -type f -name 'failed_login_data.txt' -exec cat {} + > tmp_data.txt
+
+sort tmp_data.txt
+awk -F"[ :]+" '/.*/ {print $3}'< ./tmp_data.txt > hours_dist.html
+sort -n hours_dist.html > tmp_data.txt
+uniq -c tmp_data.txt | awk '/.*/ {print "data.addRow([\x27"$2"\x27, "$1"]);"}' > hours_dist.html
+
+cd ..
+./bin/wrap_contents.sh ./data/hours_dist.html ./html_components/hours_dist ./data/tmp_data.txt
+
+cat ./data/tmp_data.txt > ./data/hours_dist.html
