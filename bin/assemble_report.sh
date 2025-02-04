@@ -1,3 +1,10 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
-cat html_components/summary_plots_header.html "$1/country_dist.html" "$1/hours_dist.html" "$1/username_dist.html" html_components/summary_plots_footer.html > "$1/failed_login_summary.html"
+cd "$1" || exit
+
+touch content.html
+touch failed_login_summary.html
+
+cat ./country_dist.html ./hours_dist.html ./username_dist.html > content.html
+
+../bin/wrap_contents.sh ./content.html ../html_components/summary_plots ./failed_login_summary.html
