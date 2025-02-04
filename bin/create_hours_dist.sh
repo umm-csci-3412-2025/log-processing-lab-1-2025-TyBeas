@@ -10,6 +10,6 @@ sort -n hours_dist.html > tmp_data.txt
 uniq -c tmp_data.txt | awk '/.*/ {print "data.addRow([\x27"$2"\x27, "$1"]);"}' > hours_dist.html
 
 cd ..
-./bin/wrap_contents.sh "$SCRTACH/hours_dist.html" html_components/hours_dist "$SCRATCH/tmp_data.txt"
+./bin/wrap_contents.sh ./data/hours_dist.html ./html_components/hours_dist ./data/tmp_data.txt
 
-cat "$SCRATCH/tmp_data.txt" > "$SCRATCH/hours_dist.html"
+cat ./data/tmp_data.txt > ./data/hours_dist.html
