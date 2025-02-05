@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Rename the input directory to 'inputDirectory'
-inputDirectory="$1"
+dir=$1
 
-# Concatenate the three report html files from the input directory
-cat "$inputDirectory"/*_dist.html | bin/wrap_contents.sh /dev/stdin html_components/summary_plots "$inputDirectory"/failed_login_summary.html
+cat "$dir"/country_dist.html "$dir"/hours_dist.html "$dir"/username_dist.html > "$dir"/summary_plot.txt
+./bin/wrap_contents.sh "$dir"/summary_plot.txt html_components/summary_plots "$dir"/failed_login_summary.html
+
+rm -rf "$dir"/summary_plot.txt

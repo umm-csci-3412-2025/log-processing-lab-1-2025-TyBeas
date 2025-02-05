@@ -1,21 +1,22 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-inputFiles=("$@")
-tempDir=$(mktemp -d)
+mkdir /tmp/SCRATCH
 
-for logFile in "${inputFiles[@]}"
+temp_dir=/tmp/SCRATCH
+
+for dir in "$@"
 do
-baseFileName="${logFile%_secure.*}"
-baseFileName=$(basename "$baseFileName")
-logDir="$tempDir"/"$baseFileName"
-mkdir -p "$logDir"
-tar -xzf "$logFile" -C "$logDir"
-bin/process_client_logs.sh "$logDir"
+	computer=$(basename "$dir" .tgz)
+	mkdir -p "$temp_dir"/"$SCRATCH"
+	tar zxf "$dir" --directory "$temp_dir"/"$SCRATCH"
+	./bin/process_client_logs.sh "$temp_dir"/"$SCRATCH"
 done
 
-bin/create_username_dist.sh "$tempDir"
-bin/create_hours_dist.sh "$tempDir"
-bin/create_country_dist.sh "$tempDir"
-bin/assemble_report.sh "$tempDir"
+./bin/create_username_dist.sh "$temp_dir"
+./bin/create_hours_dist.sh "$temp_dir"
+./bin/create_country_dist.sh "$temp_dir"
+./bin/assemble_report.sh "$temp_dir"
 
-mv "$tempDir"/failed_login_summary.html ./failed_login_summary.html
+mv "$temp_dir"/failed_login_summary.html "$(pwd)"
+
+rm -rf "$temp_dir"
