@@ -1,21 +1,21 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-here=$(pwd)
-mkdir data
+inputFiles=("$@")
+tempDir=$(mktemp -d)
 
-for name in cscirepo_secure.tgz discovery_secure.tgz ganesha_secure.tgz mylar_secure.tgz velcro_secure.tgz zeus_secure.tgz
+for logFile in "${inputFiles[@]}"
 do
-        base=$(basename "$name" _secure.tgz)
-        mkdir ./data/"$base"
-        tar -xzf ./log_files/"$name" -C ./data/"$base"
-        ./bin/process_client_logs.sh ./data/"$base"
+baseFileName="${logFile%_secure.*}"
+baseFileName=$(basename "$baseFileName")
+logDir="$tempDir"/"$baseFileName"
+mkdir -p "$logDir"
+tar -xzf "$logFile" -C "$logDir"
+bin/process_client_logs.sh "$logDir"
 done
 
+bin/create_username_dist.sh "$tempDir"
+bin/create_hours_dist.sh "$tempDir"
+bin/create_country_dist.sh "$tempDir"
+bin/assemble_report.sh "$tempDir"
 
-./bin/create_username_dist.sh data
-./bin/create_hours_dist.sh data
-./bin/create_country_dist.sh data
-./bin/assemble_report.sh data
-
-mv ./data/failed_login_summary.html "$here"
-rm -rf ./data
+mv "$tempDir"/failed_login_summary.html ./failed_login_summary.html
